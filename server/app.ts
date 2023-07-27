@@ -57,7 +57,7 @@ wss.on('connection', (socket: WebSocket) => {
 });
 
 
-const PORT = 3000;
+const PORT = 4100;
 server.listen(PORT, () => {
 	console.log('Server running');
 });
