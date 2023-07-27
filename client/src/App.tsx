@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React, { useState, useEffect } from 'react';
+
+import useWebSocket from 'react-use-websocket';
+
 import './App.css'
 
+const WS_URL = 'ws://127.0.0.1:4101';
+
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [msg, setMsg] = useState();
+
+
+
+  const { sendJsonMessage, lastMessage, lastJsonMessage, readyState } = useWebSocket(WS_URL, {
+    onOpen: () => {
+      console.log('opened client socket');
+    },
+    onMessage: (event) => {
+      console.log('got message', event.data);
+      setMsg(event.data);
+    },
+    retryOnError: true,
+    shouldReconnect: () => true,
+    share: true
+  })
+
+
+
+
+
+
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>Hello SUI</h1>
+      <button
+        onClick={() => sendJsonMessage({ whom: "client" })}
+      >
+        Send msg
+      </button>
+
+      <p>{ JSON.stringify(msg) }</p>
     </>
   )
 }
 
-export default App
+export default App;

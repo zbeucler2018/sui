@@ -16,6 +16,7 @@ type DataRequest = {
 }
 
 interface Client {
+	id: number;
 	websocket: WebSocket;
 	currentTab?: string;
 	zmqsocket?: any;
@@ -29,8 +30,9 @@ const wss: WebSocketServer = new WebSocket.Server({ server });
 const clients: Map<number, Client> = new Map();
 
 
-const handleRequest = (msg, client) => {
-    console.log(`Got request from ${client.id}, ${JSON.stringify(msg)}`)
+const handleRequest = (msg: any, client: Client) => {
+    console.log(`Got request from ${client.id}, ${JSON.stringify(msg)}`);
+	client.websocket.send( JSON.stringify({'whom': "server"}) );
 }
 
 
@@ -38,7 +40,7 @@ wss.on('connection', (socket: WebSocket) => {
 
 	// handle new client
 	const clientId = clients.size + 1;
-	const newClient: Client = { websocket: socket };
+	const newClient: Client = { id: clientId, websocket: socket };
 	clients.set(clientId, newClient);
     console.log(`client ${clientId} connected`)
 
