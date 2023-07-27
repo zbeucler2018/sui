@@ -1,6 +1,7 @@
 import { WebSocketServer, WebSocket } from 'ws';
 import * as http from 'http';
 import express, { Express } from 'express';
+import * as fs from 'fs';
 
 ////
 // Type definitions
@@ -57,6 +58,20 @@ wss.on('connection', (socket: WebSocket) => {
         console.log(`Client ${clientId} disconnected`);
 	});
 });
+
+
+// handle props
+const propsQuery = '/:appName/props'
+app.get(propsQuery, async (req, res) => {
+	let _props;
+	try {
+		_props = require('../test_data/ui.jsonc');
+	} catch (err) {
+		console.error("Couldnt find props. Got error", err);
+		_props = { "error!": "Could not find props"}
+	}
+	res.json(_props);
+})
 
 
 const PORT = 4100;

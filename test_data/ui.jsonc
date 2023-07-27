@@ -1,0 +1,65 @@
+{
+    "appName": "SUI",
+    "refreshRate_ms": 3000,
+    "theme": "dark",
+
+    "links": [
+        {
+            "text": "Google",
+            "tooltip": "Go to Google",
+            "url": "https://www.google.com/"
+        },
+        {
+            "text": "Largo Inc",
+            "tooltip": "Go to Largo",
+            "url": "https://largoinc.com/overview/default.aspx"
+        }
+    ],
+
+    "tabs": [
+        /**
+        ZMQ PACKET: <request COMMAND= valueName= />
+        {
+            title           : Title of the SUI instance,
+            type            : Type of tab (normal|overlay),
+
+            ~~ might figure out a better delcaration for ZMQ stuff~~
+            zmqDataPort     : Data port
+            zmqDataTerm     : Command to be used in the ZMQ packet when requesting data
+            zmqDataExtra    : (Optional) Used when a 'valueName' needs to be specified for the ZMQ data request
+
+            zmqCommandPort  : (Optional) Command port
+            zmqCommandTerm  : (Optional) Command to be used in the ZMQ packet when sending a command
+            zmqCommandExtra : (Optional) Used when a 'valueName' needs to be specified for the ZMQ command
+
+            ~~ overlay ~~
+            overlayImagePath : File path to background overlay image
+        }
+
+        **/
+        {
+            "title": "Tab 1",
+            "type": "normal",
+            "zmqPort": 1001,
+            "zmqDataTerm": "DCBattData",
+            "zmqCommandTerm": "DCBattData"
+        },
+        {
+            "title": "Tab 2",
+            "type": "normal",
+            "zmqPort": 1002,
+            "zmqDataTerm": "ModulePIDData",
+            "zmqDataExtra": 1,
+            "zmqCommandTerm": "DCBattData"
+        },
+        {
+            "title": "Tab 3",
+            "type": "normal",
+            "zmqPort": 1003,
+            "zmqDataTerm": "ModulePIDData",
+            "zmqDataExtra": 2,
+            "zmqCommandTerm": "DCBattData",
+            "zmqCommandExtra": 2
+        }
+    ]
+}

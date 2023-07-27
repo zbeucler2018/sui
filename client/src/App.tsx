@@ -1,24 +1,30 @@
 import React, { useState, useEffect } from 'react';
-
+import { AppProps } from './AppProps/AppProps';
 import useWebSocket from 'react-use-websocket';
 
 import './App.css'
 
-const WS_URL = 'ws://127.0.0.1:4101';
+const WS_URL = 'ws://127.0.0.1:4100';
+
+
+
 
 
 function App() {
-  const [msg, setMsg] = useState();
 
 
+  useEffect(() => {
+    // send GET request for props
+    let idk = 0;
+  }, [])
 
-  const { sendJsonMessage, lastMessage, lastJsonMessage, readyState } = useWebSocket(WS_URL, {
+
+  const { sendJsonMessage, sendMessage, lastJsonMessage, readyState } = useWebSocket(WS_URL, {
     onOpen: () => {
       console.log('opened client socket');
     },
     onMessage: (event) => {
       console.log('got message', event.data);
-      setMsg(event.data);
     },
     retryOnError: true,
     shouldReconnect: () => true,
@@ -33,14 +39,7 @@ function App() {
 
   return (
     <>
-      <h1>Hello SUI</h1>
-      <button
-        onClick={() => sendJsonMessage({ whom: "client" })}
-      >
-        Send msg
-      </button>
-
-      <p>{ JSON.stringify(msg) }</p>
+      <h2>Hello SUI</h2>
     </>
   )
 }
