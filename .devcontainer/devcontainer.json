@@ -5,5 +5,5 @@
         "dockerfile": "Dockerfile"
     },
 
-    "forwardPorts": [ "4100:4100", "4200:4200" ]
+    //"forwardPorts": [ "4100:4100", "4200:4200" ]
 }
