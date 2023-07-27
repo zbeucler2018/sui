@@ -1,0 +1,9 @@
+{
+    "name": "SUI devcontaner",
+    "build": {
+        "context": ".",
+        "dockerfile": "Dockerfile"
+    },
+
+    "forwardPorts": [ "4100:4100", "4200:4200" ]
+}
