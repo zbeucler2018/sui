@@ -1,11 +1,9 @@
 import { WebSocketServer, WebSocket } from 'ws';
 import * as http from 'http';
 import express, { Express } from 'express';
-import * as fs from 'fs';
+import cors, { CorsOptions } from 'cors';
+import fs from 'fs';
 
-////
-// Type definitions
-////
 
 type DataRequest = {
 	_type: "data" | "command";
@@ -22,6 +20,8 @@ interface Client {
 	currentTab?: string;
 	zmqsocket?: any;
 }
+
+
 
 
 
@@ -43,7 +43,7 @@ wss.on('connection', (socket: WebSocket) => {
 	const clientId = clients.size + 1;
 	const newClient: Client = { id: clientId, websocket: socket };
 	clients.set(clientId, newClient);
-    console.log(`client ${clientId} connected`)
+    console.log(`client ${clientId} connected`);
 
 	// handle incomming message
 	socket.on('message', (_msg: string) => {
@@ -65,14 +65,24 @@ const propsQuery = '/:appName/props'
 app.get(propsQuery, async (req, res) => {
 	let _props;
 	try {
-		_props = require('../test_data/ui.jsonc');
+		_props = JSON.parse(fs.readFileSync('../test_data/ui.json', 'utf-8'));
 	} catch (err) {
 		console.error("Couldnt find props. Got error", err);
 		_props = { "error!": "Could not find props"}
 	}
+	console.log('Sent props')
+	res.set('Access-Control-Allow-Origin', 'http://localhost:4200')
 	res.json(_props);
-})
+});
 
+
+
+
+const corsOptions: CorsOptions = {
+	origin: "http://localhost:4200"
+}
+app.use(cors(corsOptions))
+app.use(express.json())
 
 const PORT = 4100;
 server.listen(PORT, () => {
