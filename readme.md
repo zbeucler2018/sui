@@ -13,6 +13,7 @@
 - mobile support (essentially flexbox)
 - override props
 - collapse-able tables
+    - material-ui datatables
 - collapse-able sections
 - ability to pause realtime updates
 - modals / popups
@@ -25,6 +26,10 @@
     - figure out if json/jsonc or yaml is more prefered. depends what the team wants
 - backwards compatablilty with SimpleUI is ideal but I guess not needed
     - needs some type of translation layer
+- event log page
+- (???) fleetviewer page
+- params page
+- buttons with popups
 
 #### dev features
 - enforced codestyle
@@ -34,8 +39,6 @@
     - formatting (prettier?)
     - some type of static analysis (prevent deadcode)
 - devcontainer
-- ability to run the paramsApp in dev mode
-    - needs DB container to devcontainer and maybe apache2 container
 - extensive testing
     - unit + integration
 
