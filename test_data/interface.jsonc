@@ -1,0 +1,14 @@
+{
+    "sections": [
+        {
+            "title": "System Information",
+            "tables": [
+                {
+                    "title": "Overall",
+                    
+                    "rows": [["System Mode"], ["Offline"]]
+                }
+            ]
+        }
+    ]
+}
